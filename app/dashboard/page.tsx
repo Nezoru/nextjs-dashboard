@@ -2,12 +2,18 @@ import { Card } from '@/app/ui/dashboard/cards';
 import RevenueChart from '@/app/ui/dashboard/revenue-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { lusitana } from '@/app/ui/fonts';
-import { fetchRevenue, fetchLatestInvoices, fetchCardData  } from '../lib/data';
+import { fetchCardDataPrisma, fetchLatestInvoicesPrisma, fetchRevenuePrisma  } from '../lib/prisma';
  
 export default async function Page() {
-    const revenue = await fetchRevenue();
-    const latestInvoices = await fetchLatestInvoices();
-    const {totalPaidInvoices, totalPendingInvoices, numberOfInvoices, numberOfCustomers}  = await fetchCardData();
+    const revenue = await fetchRevenuePrisma();
+    const latestInvoices = await fetchLatestInvoicesPrisma();
+    const {
+      totalPaidInvoices, 
+      totalPendingInvoices, 
+      numberOfInvoices, 
+      numberOfCustomers
+    } = await fetchCardDataPrisma();
+    
   return (
     <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
